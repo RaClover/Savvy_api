@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
@@ -5,6 +6,15 @@ import spacy
 import logging
 
 app = FastAPI()
+
+# Set up CORS middleware options
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Specify which origins are allowed to access the server
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, DELETE, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 class SMS(BaseModel):
     message: str
